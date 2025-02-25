@@ -47,12 +47,12 @@ def naver_save_csv(shop_name, stars, addresses,categories,src):
 def save_csv(shop_name, stars, addresses,categories):
     if os.path.exists("shop_kakao.csv") ==True:
         os.remove("shop_kakao.csv")
-     with open("shop_kakao.csv", "w", newline="", encoding="CP949") as file:
-            writer = csv.writer(file)
-            header = ["상호명", "별점", "주소","카테고리"]
-            writer.writerow(header)
-            for i in range(len(shop_name)):
-                writer.writerow([shop_name[i], stars[i], addresses[i],categories[i]])
+    with open("shop_kakao.csv", "w", newline="", encoding="CP949") as file:
+        writer = csv.writer(file)
+        header = ["상호명", "별점", "주소","카테고리"]
+        writer.writerow(header)
+        for i in range(len(shop_name)):
+            writer.writerow([shop_name[i], stars[i], addresses[i],categories[i]])
 
 
 def naver_shop():
