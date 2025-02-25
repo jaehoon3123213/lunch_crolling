@@ -209,7 +209,10 @@ def kakao_shop():
     #         return True
     def apn(i):
         name=df["상호명"][i]
-        star=driver.find_element(By.XPATH,'//*[@id="mArticle"]/div[1]/div/div[1]/div[1]/a[1]/span[1]/span[1]').text
+        try:
+            star=driver.find_element(By.XPATH,'//*[@id="mArticle"]/div[1]/div/div[1]/div[1]/a[1]/span[1]/span[1]').text
+        except:
+            star=0
         adress= driver.find_element(By.CSS_SELECTOR,'#mArticle > div.cont_locationinfo > div > div:nth-child(2) > div > span.txt_address').text
         category= driver.find_element(By.CSS_SELECTOR,'#mArticle > div.cont_essential > div > div.place_details > span > span.txt_location').text.split()
         shop_name.append(name)
