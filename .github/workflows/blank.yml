@@ -2,7 +2,7 @@ name: Naver Map Scraping
 
 on:
   schedule:
-      - cron: "* 14 * * *" 
+      - cron: "00 14 * * *" 
   workflow_dispatch:
 
 jobs:
