@@ -1,0 +1,56 @@
+name: Naver Map Scraping
+
+on:
+  workflow_dispatch:
+
+jobs:
+  selenium_test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # 푸시 권한 추가
+
+      - name: Python 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install selenium webdriver-manager chromedriver-autoinstaller geopy requests pandas pyvirtualdisplay
+
+      - name: 크롬 브라우저 관련 환경 구성
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          google-chrome --version
+          sudo apt-get install unzip xvfb  # Xvfb 추가 설치
+          wget https://storage.googleapis.com/chrome-for-testing-public/133.0.6943.126/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          mv chromedriver-linux64/chromedriver chromedriver
+          sudo chmod +x chromedriver
+          
+      - name: 가상 디스플레이 (Xvfb) 실행
+        run: |
+          Xvfb :99 -screen 0 1920x1080x24 -ac &
+          echo "DISPLAY=:99" >> $GITHUB_ENV
+
+      - name: Run Python script
+        env:
+          X_NCP_APIGW_API_KEY_ID: ${{ secrets.X_NCP_APIGW_API_KEY_ID }}
+          X_NCP_APIGW_API_KEY: ${{ secrets.X_NCP_APIGW_API_KEY }}
+        run: |
+          python naver.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@github.com"
+          git add shop_distance.csv
+          git add shop_kakao.csv
+          git commit -m "crolling (auto)"
+          git push --force origin main
