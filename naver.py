@@ -211,7 +211,7 @@ def kakao_shop():
         name=df["상호명"][i]
         try:
             star=driver.find_element(By.XPATH,'//*[@id="mArticle"]/div[1]/div/div[1]/div[1]/a[1]/span[1]/span[1]').text
-            if int(star) > 5:
+            if float(star) > 5:
                 star =0
         except:
             star=0
