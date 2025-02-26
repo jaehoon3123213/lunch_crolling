@@ -171,7 +171,7 @@ def cal_distance(in_name, out_name):
     y_start =data["addresses"][0]['y']
 
     distance = []
-    driver.clsoe()
+    driver.close()
     for i in range(len(df)):
         address = df["주소"][i]
         url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}' #주소입력
