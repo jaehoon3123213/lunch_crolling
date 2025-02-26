@@ -35,9 +35,9 @@ import pandas as pd
 import geopy.distance # 거리계산 라이브러리
 
 def naver_save_csv(shop_name, stars, addresses,categories,src):
-    if os.path.exists("shop_distance.csv") ==True:
-        os.remove("shop_distance.csv")
-    with open("shop_distance.csv", "w", newline="", encoding="CP949") as file:
+    if os.path.exists("shop_naver.csv") ==True:
+        os.remove("shop_naver.csv")
+    with open("shop_naver.csv", "w", newline="", encoding="CP949") as file:
         writer = csv.writer(file)
         header = ["상호명", "별점", "주소","카테고리","이미지"]
         writer.writerow(header)
@@ -136,31 +136,8 @@ def naver_shop():
     naver_save_csv(shop_name, stars, addresses, categories, src)
 
 def cal_distance(in_name, out_name):
-    df = pd.read_csv(in_name, encoding="CP949")
-    for i in range(len(df)):
-        if df["주소"][i] == "서울 강서구 내발산동 강서로 289":
-            df["주소"][i] = "내발산동 701-9"
-
-    start_point = "서울기술교육센터"
-    url = f"https://map.naver.com/p/search/{start_point}?c=15.00,0,0,0,dh"
-    driver = wb.Chrome()
-    driver.get(url)
-    time.sleep(5)
-
-    driver.switch_to.default_content()
-    driver.switch_to.frame("searchIframe")  # 프레임 전환(가게 목록)
-
-    Advertisement = driver.find_elements(By.CLASS_NAME, "dPXjn")
-    data = driver.find_elements(By.CLASS_NAME, "YwYLL")
-    start_point_name = data[len(Advertisement)]
-    time.sleep(0.5)
-    start_point_name.click()
-    time.sleep(2)
-
-    driver.switch_to.default_content()
-    driver.switch_to.frame("entryIframe")
-    address_start = driver.find_element(By.CLASS_NAME, "LDgIH").text
-
+    if os.path.exists("shop_distance.csv") ==True:
+        os.remove("shop_distance.csv")
     url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address_start}' #주소입력
     headers = {
         "X-NCP-APIGW-API-KEY-ID": os.getenv("X_NCP_APIGW_API_KEY_ID"),
@@ -171,7 +148,6 @@ def cal_distance(in_name, out_name):
     y_start =data["addresses"][0]['y']
 
     distance = []
-    driver.close()
     for i in range(len(df)):
         address = df["주소"][i]
         url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}' #주소입력
@@ -269,4 +245,5 @@ def kakao_shop():
 
     save_csv(shop_name, stars, addresses,categories)
 naver_shop()
+cal_distance("shop_naver.csv","shop_distance.csv")
 kakao_shop()
