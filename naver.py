@@ -138,15 +138,12 @@ def naver_shop():
 def cal_distance(in_name, out_name):
     if os.path.exists("shop_distance.csv") ==True:
         os.remove("shop_distance.csv")
-    url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address_start}' #주소입력
     headers = {
         "X-NCP-APIGW-API-KEY-ID": os.getenv("X_NCP_APIGW_API_KEY_ID"),
         "X-NCP-APIGW-API-KEY": os.getenv("X_NCP_APIGW_API_KEY")
     } # header에 api-key
-    data = requests.get(url,headers=headers).json()
-    x_start =data["addresses"][0]['x']
-    y_start =data["addresses"][0]['y']
-
+    x_start =126.8412894
+    y_start =37.542305 #(37.5423051, 126.8412894) =>대한상공회의소 좌표
     distance = []
     for i in range(len(df)):
         address = df["주소"][i]
@@ -156,7 +153,7 @@ def cal_distance(in_name, out_name):
         y =data["addresses"][0]['y']
         dis = geopy.distance.distance((y_start, x_start), (y,x)).km
         dis = round(dis * 1000, 0)
-        distance.append(int(dis)) #(37.5423051, 126.8412894) =>대한상공회의소 좌표
+        distance.append(int(dis)) 
 
     df["거리"] = distance
     df.to_csv(out_name, encoding="CP949")
