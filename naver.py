@@ -145,6 +145,7 @@ def cal_distance(in_name, out_name):
     x_start =126.8412894
     y_start =37.542305 #(37.5423051, 126.8412894) =>대한상공회의소 좌표
     distance = []
+    df = pd.read_csv(in_name, encoding="CP949")
     for i in range(len(df)):
         address = df["주소"][i]
         url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}' #주소입력
