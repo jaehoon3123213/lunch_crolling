@@ -31,7 +31,7 @@ jobs:
           sudo dpkg -i google-chrome-stable_current_amd64.deb
           google-chrome --version
           sudo apt-get install unzip xvfb  # Xvfb 추가 설치
-          wget https://storage.googleapis.com/chrome-for-testing-public/133.0.6943.126/linux64/chromedriver-linux64.zip
+          wget https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip
           mv chromedriver-linux64/chromedriver chromedriver
           sudo chmod +x chromedriver
