@@ -155,7 +155,7 @@ def cal_distance(in_name, out_name):
     df = pd.read_csv(in_name, encoding="CP949")
     for i in range(len(df)):
      if df["주소"][i] == "서울 강서구 내발산동 강서로 289":
-         df["주소"][i] = "내발산동 701-9;
+         df["주소"][i] = "내발산동 701-9";
     for i in range(len(df)):
         address = df["주소"][i]
         url = f'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query={address}' #주소입력
