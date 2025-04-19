@@ -192,8 +192,8 @@ def kakao_shop():
         # dimmed_layer가 없거나, 이미 사라져 있으면 그냥 넘어감
         pass
 
-    driver.refreash()
-    driver.refreash()
+    driver.refresh()
+    driver.refresh()
     search_kakao.click()
     search_kakao.click()
     search_kakao.send_keys("a")
