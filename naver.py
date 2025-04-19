@@ -132,7 +132,7 @@ def naver_shop():
             break
 
 
-    driver.close()
+    driver.quit()
     naver_save_csv(shop_name, stars, addresses, categories, src)
 
 def cal_distance(in_name, out_name):
