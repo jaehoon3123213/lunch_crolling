@@ -194,7 +194,7 @@ def kakao_shop():
     time.sleep(5)
     driver.refresh()
     driver.refresh()
-    time.sleep()
+    time.sleep(5)
     search_kakao.click()
     search_kakao.click()
     search_kakao.send_keys("a")
