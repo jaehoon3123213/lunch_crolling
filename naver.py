@@ -43,7 +43,10 @@ def naver_save_csv(shop_name, stars, addresses,categories,src):
         header = ["상호명", "별점", "주소","카테고리","이미지"]
         writer.writerow(header)
         for i in range(len(shop_name)):
-            writer.writerow([shop_name[i], stars[i], addresses[i],categories[i],src[i]])
+            try:
+                writer.writerow([shop_name[i], stars[i], addresses[i],categories[i],src[i]])
+            except:
+                break
             
 def save_csv(shop_name, stars, addresses,categories):
     if os.path.exists("shop_kakao.csv") ==True:
