@@ -123,13 +123,16 @@ def naver_shop():
                     i += 1
                 except:
                     break
-        if button.get_attribute("aria-disabled") == "false":
-            driver.switch_to.default_content()
-            driver.switch_to.frame("searchIframe") # 프레임 전환(가게 목록)
-            button.click() # 페이지 넘기는 버튼 클릭
-            time.sleep(5)
-        else:
-            break
+        try:
+            if button.get_attribute("aria-disabled") == "false":
+                driver.switch_to.default_content()
+                driver.switch_to.frame("searchIframe")
+                button.click()
+                time.sleep(3)
+            else:
+                break
+        except selenium.common.exceptions.WebDriverException as e:
+            break  # or 루프 다시 초기화 할 수도 있음
 
 
     driver.quit()
