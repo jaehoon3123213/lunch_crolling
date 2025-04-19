@@ -127,7 +127,7 @@ def naver_shop():
             driver.switch_to.default_content()
             driver.switch_to.frame("searchIframe") # 프레임 전환(가게 목록)
             button.click() # 페이지 넘기는 버튼 클릭
-            time.sleep(3)
+            time.sleep(5)
         else:
             break
 
