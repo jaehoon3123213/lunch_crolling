@@ -181,6 +181,8 @@ def kakao_shop():
     time.sleep(3)
     background = driver.find_element(By.XPATH, '//*[@id="daumWrap"]/div[1]/div/div[2]/a/span')  
     background.click()
+    driver.refresh()
+    time.sleep(3)
     search_kakao = driver.find_element(By.CSS_SELECTOR,"#innerQuery")
 
     search_kakao.click()
