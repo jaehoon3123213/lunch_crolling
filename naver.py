@@ -191,12 +191,8 @@ def kakao_shop():
     except TimeoutException:
         # dimmed_layer가 없거나, 이미 사라져 있으면 그냥 넘어감
         pass
-    time.sleep(5)
-    driver.refresh()
-    driver.refresh()
-    time.sleep(5)
     search_kakao.click()
-    search_kakao.click()
+
     search_kakao.send_keys("a")
     shop_name = []
     stars = []
