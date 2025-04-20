@@ -175,12 +175,13 @@ def kakao_shop():
     with open ("shop_distance.csv", "r" ,encoding="CP949") as file:
         df = pd.read_csv(file)
     url = "https://m.map.kakao.com/actions/searchView?q=%EB%A6%B0%EC%A4%91%EC%8B%9D%EB%8B%B9&wxEnc=LQRTQP&wyEnc=QNLNLMN&lvl=4"
-    driver = wb.Chrome(service=service, options=options)
+    driver = wb.Chrome(options=options)
     driver.get(url)
     driver.implicitly_wait(5)
     time.sleep(3)
     background = driver.find_element(By.XPATH, '//*[@id="daumWrap"]/div[1]/div/div[2]/a/span')  
     background.click()
+    driver.back()
     driver.refresh()
     time.sleep(3)
     search_kakao = driver.find_element(By.CSS_SELECTOR,"#innerQuery")
@@ -195,13 +196,13 @@ def kakao_shop():
     def apn(i):
         name=df["상호명"][i]
         try:
-            star=driver.find_element(By.XPATH,'//*[@id="mArticle"]/div[1]/div/div[1]/div[1]/a[1]/span[1]/span[1]').text
+            star=driver.find_element(By.XPATH,'//*[@id="mainContent"]/div[1]/div[1]/div[2]/div[1]/a/span/span[2]').text
             if float(star) > 5:
                 star =0
         except:
             star=0
-        adress= driver.find_element(By.CSS_SELECTOR,'#mArticle > div.cont_locationinfo > div > div:nth-child(2) > div > span.txt_address').text
-        category= driver.find_element(By.CSS_SELECTOR,'#mArticle > div.cont_essential > div > div.place_details > span > span.txt_location').text.split()
+        adress= driver.find_element(By.CSS_SELECTOR,'#mainContent > div.main_detail.home > div.detail_cont > div.section_comm.section_defaultinfo > div > div:nth-child(1) > div > div:nth-child(1) > span').text
+        category= driver.find_element(By.CSS_SELECTOR,'#mainContent > div.top_basic > div.info_main > div.unit_info > span').text.split()
         shop_name.append(name)
         stars.append(star)
         addresses.append(adress)
@@ -250,7 +251,6 @@ def kakao_shop():
             pass
         except:
             null_apn(i)
-            pass
 
     save_csv(shop_name, stars, addresses,categories)
 #naver_shop()
