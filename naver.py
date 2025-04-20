@@ -250,6 +250,6 @@ def kakao_shop():
             pass
 
     save_csv(shop_name, stars, addresses,categories)
-naver_shop()
-cal_distance("shop_naver.csv","shop_distance.csv")
+#naver_shop()
+#cal_distance("shop_naver.csv","shop_distance.csv")
 kakao_shop()
