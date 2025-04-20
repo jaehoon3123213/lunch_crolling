@@ -178,19 +178,10 @@ def kakao_shop():
     driver = wb.Chrome(service=service, options=options)
     driver.get(url)
     driver.implicitly_wait(5)
+    driver.refresh()
+    time.sleep(3)
     search_kakao = driver.find_element(By.CSS_SELECTOR,"#innerQuery")
 
-    try:
-        # dimmed_layer가 존재하면 사라질 때까지 기다림 (최대 5초)
-        dimmed = WebDriverWait(driver, 3).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "dimmed_layer"))
-        )
-        WebDriverWait(driver, 5).until(
-            EC.invisibility_of_element(dimmed)
-        )
-    except TimeoutException:
-        # dimmed_layer가 없거나, 이미 사라져 있으면 그냥 넘어감
-        pass
     search_kakao.click()
 
     search_kakao.send_keys("a")
