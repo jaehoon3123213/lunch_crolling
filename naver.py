@@ -178,8 +178,9 @@ def kakao_shop():
     driver = wb.Chrome(service=service, options=options)
     driver.get(url)
     driver.implicitly_wait(5)
-    driver.refresh()
     time.sleep(3)
+    background = driver.find_element(By.TAG_NAME, 'body')  # 또는 By.CSS_SELECTOR로 dimend 바깥 요소 지정
+    background.click()
     search_kakao = driver.find_element(By.CSS_SELECTOR,"#innerQuery")
 
     search_kakao.click()
