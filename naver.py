@@ -179,8 +179,9 @@ def kakao_shop():
     driver.get(url)
     driver.implicitly_wait(5)
     time.sleep(3)
-    background = driver.find_element(By.TAG_NAME, 'body')  # 또는 By.CSS_SELECTOR로 dimend 바깥 요소 지정
+    background = driver.find_element(By.XPATH, '//*[@id="daumWrap"]/div[1]/div/div[2]/a/span')  
     background.click()
+    driver.back()
     search_kakao = driver.find_element(By.CSS_SELECTOR,"#innerQuery")
 
     search_kakao.click()
